@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>嘲諷木魚 | Cynical Clicker</title>
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="嘲諷木魚">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    :root {
+      --bg: #000000;
+      --fg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .app {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .muyu {
+      width: min(74vw, 420px);
+      aspect-ratio: 1 / 1;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: transform 80ms linear;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      z-index: 2;
+    }
+
+    .muyu:active,
+    .muyu.is-pressed {
+      transform: scale(0.95);
+    }
+
+    .muyu img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .counter {
+      font-size: clamp(20px, 4vw, 28px);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .status-panel {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .reset-btn {
+      background: transparent;
+      border: 0;
+      color: #555555;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: transform 80ms linear, color 80ms linear;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .reset-btn:active,
+    .reset-btn.is-pressed {
+      color: #444444;
+      transform: scale(0.95);
+    }
+
+    .quote-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .floating-quote {
+      position: absolute;
+      color: var(--fg);
+      font-size: clamp(12px, 2.8vw, 18px);
+      line-height: 1.35;
+      white-space: nowrap;
+      opacity: 0;
+      animation: floatFade 3.5s ease-out forwards;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+
+    @keyframes floatFade {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      14% {
+        opacity: 1;
+      }
+      72% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-66px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <button id="muyuButton" class="muyu" aria-label="敲擊木魚">
+      <img src="muyu.png" alt="木魚圖示">
+    </button>
+    <section id="statusPanel" class="status-panel" aria-label="計數區塊">
+      <p id="counter" class="counter">點擊次數：0</p>
+      <button id="resetButton" class="reset-btn" type="button" aria-label="重置計數器">重置</button>
+    </section>
+    <div id="quoteLayer" class="quote-layer" aria-hidden="true"></div>
+  </main>
+
+  <script>
+    const quotes = [
+      "功德 +1。銀行帳戶餘額 +0。",
+      "你敲擊螢幕的手速再快，也趕不上通貨膨脹的速度。",
+      "老闆的保時捷，就是靠你這種不懈的重複勞動換來的。",
+      "上班裝忙敲木魚，你的考績並不會因此得到超度。",
+      "高端的社畜，往往只需要最樸素的發洩方式。",
+      "只要我敲得夠快，資本的鐮刀就割不到我。——純屬錯覺。",
+      "宇宙已經誕生了138億年，而你選擇在這裡點擊一個虛擬按鈕。",
+      "薛丁格的木魚：在你停手之前，你的生活既是無聊的，也是極度無聊的。",
+      "按下按鈕，獲得短暫的控制感；放開按鈕，繼續面對失控的人生。",
+      "如果西西弗斯有一部智慧型手機，他大概也在做同樣的事。",
+      "你以為這是在積累功德？不，這只是對抗存在性焦慮的安慰劑。",
+      "退一步海闊天空，點一下四大皆空。",
+      "小孩子才做選擇，成年人選擇在這裡逃避現實。",
+      "遇事不決，敲擊木魚。量子力學也解釋不了你現在的行為。",
+      "你的大腦 CPU 應該已經燒乾了吧？不然怎麼會盯著這個畫面。",
+      "這是一行開過光的代碼，但它並不能阻止你今晚繼續失眠。",
+      "聽說敲滿一千下會召喚神龍。騙你的，只有無盡的空虛。",
+      "我看不懂，但我大受震撼。"
+    ];
+
+    const muyuButton = document.getElementById("muyuButton");
+    const counterEl = document.getElementById("counter");
+    const statusPanel = document.getElementById("statusPanel");
+    const resetButton = document.getElementById("resetButton");
+    const quoteLayer = document.getElementById("quoteLayer");
+    const baseMuyuSound = new Audio("muyu.mp3");
+    baseMuyuSound.preload = "auto";
+
+    let count = 0;
+
+    function randomFrom(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function getMuyuCenter() {
+      const rect = muyuButton.getBoundingClientRect();
+      return {
+        rect: rect,
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+        size: Math.max(rect.width, rect.height)
+      };
+    }
+
+    function playMuyuSound() {
+      const sound = baseMuyuSound.cloneNode();
+      sound.currentTime = 0;
+      sound.play().catch(() => {
+        // Ignore autoplay/playback rejections quietly.
+      });
+    }
+
+    function randomRingPoint(quoteWidth, quoteHeight) {
+      const center = getMuyuCenter();
+      const footerRect = statusPanel.getBoundingClientRect();
+      const angle = Math.random() * Math.PI * 2;
+      const minRadius = center.size / 2 + 20;
+
+      const quoteHalfW = quoteWidth / 2;
+      const quoteHalfH = quoteHeight / 2;
+
+      const maxToLeft = center.x - (8 + quoteHalfW);
+      const maxToRight = (window.innerWidth - 8 - quoteHalfW) - center.x;
+      const maxToTop = center.y - (8 + quoteHalfH);
+      const maxToBottom = (Math.max(8, footerRect.top - 12) - quoteHalfH) - center.y;
+      const maxBaseRadius = Math.max(0, Math.min(maxToLeft, maxToRight, maxToTop, maxToBottom));
+      const maxRadius = Math.max(minRadius + 2, maxBaseRadius);
+
+      const radius = minRadius + Math.random() * Math.max(2, maxRadius - minRadius);
+      const x = center.x + Math.cos(angle) * radius;
+      const y = center.y + Math.sin(angle) * radius;
+      return { x, y };
+    }
+
+    function spawnQuote(text, placement) {
+      const quote = document.createElement("span");
+      quote.className = "floating-quote";
+      quote.textContent = text || randomFrom(quotes);
+
+      quoteLayer.appendChild(quote);
+      const quoteRect = quote.getBoundingClientRect();
+      let x = 0;
+      let y = 0;
+
+      if (placement === "top") {
+        const topMin = 16;
+        const topMax = Math.max(topMin, Math.min(window.innerHeight * 0.26, getMuyuCenter().rect.top - 24));
+        x = 8 + Math.random() * Math.max(1, window.innerWidth - quoteRect.width - 16);
+        y = topMin + Math.random() * Math.max(1, topMax - topMin);
+      } else {
+        const ringPoint = randomRingPoint(quoteRect.width, quoteRect.height);
+        const xJitter = (Math.random() - 0.5) * 22;
+        const yJitter = (Math.random() - 0.5) * 14;
+        x = ringPoint.x - quoteRect.width / 2 + xJitter;
+        y = ringPoint.y - quoteRect.height / 2 + yJitter;
+      }
+
+      const yLimit = Math.max(8, statusPanel.getBoundingClientRect().top - quoteRect.height - 12);
+      x = clamp(x, 8, window.innerWidth - quoteRect.width - 8);
+      y = clamp(y, 8, yLimit);
+
+      quote.style.left = x + "px";
+      quote.style.top = y + "px";
+
+      quote.addEventListener("animationend", () => {
+        quote.remove();
+      }, { once: true });
+    }
+
+    function clickMuyu() {
+      count += 1;
+      counterEl.textContent = "點擊次數：" + count;
+      playMuyuSound();
+      spawnQuote();
+    }
+
+    muyuButton.addEventListener("click", clickMuyu);
+    resetButton.addEventListener("click", () => {
+      count = 0;
+      counterEl.textContent = "點擊次數：0";
+      spawnQuote("你以為一切都可以重新開始？", "top");
+    });
+
+    // Keyboard support
+    muyuButton.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        muyuButton.classList.add("is-pressed");
+      }
+    });
+
+    muyuButton.addEventListener("keyup", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        muyuButton.classList.remove("is-pressed");
+        clickMuyu();
+      }
+    });
+
+    resetButton.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        resetButton.classList.add("is-pressed");
+      }
+    });
+
+    resetButton.addEventListener("keyup", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        resetButton.classList.remove("is-pressed");
+        resetButton.click();
+      }
+    });
+  </script>
+</body>
+</html>
