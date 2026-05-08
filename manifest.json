@@ -1,0 +1,18 @@
+{
+  "name": "嘲諷木魚 (Cynical Clicker)",
+  "short_name": "嘲諷木魚",
+  "description": "極簡黑白風的單頁點擊 PWA。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
