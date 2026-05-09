@@ -132,6 +132,310 @@
       pointer-events: none;
     }
 
+    .floating-quote.achievement {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(16px, 3vw, 24px);
+      text-align: center;
+      max-width: min(90vw, 760px);
+      white-space: pre-line;
+      line-height: 1.45;
+      animation: achievementFade 5s ease-out forwards;
+    }
+
+    .corner-btn {
+      position: absolute;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #aaaaaa;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: transform 80ms linear, color 80ms linear, border-color 80ms linear;
+      -webkit-tap-highlight-color: transparent;
+      z-index: 12;
+      padding: 12px 18px;
+      min-width: 48px;
+      min-height: 48px;
+      line-height: 1.2;
+    }
+
+    .corner-btn:active,
+    .corner-btn.is-pressed {
+      color: #cccccc;
+      border-color: rgba(255, 255, 255, 0.55);
+      transform: scale(0.95);
+    }
+
+    .add-quote-btn {
+      right: 12px;
+      bottom: 12px;
+      font-size: 28px;
+      font-weight: 300;
+      padding: 10px 20px;
+    }
+
+    .atlas-btn {
+      left: 12px;
+      bottom: 12px;
+      font-size: 20px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 30;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(92vw, 560px);
+      border: 1px solid #ffffff;
+      padding: 16px;
+      background: #000000;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-card.atlas-card {
+      width: min(94vw, 600px);
+      max-height: min(92vh, 720px);
+    }
+
+    .modal-card.atlas-card .modal-actions {
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-size: 14px;
+      letter-spacing: 0.08em;
+    }
+
+    .modal-input {
+      width: 100%;
+      border: 1px solid #ffffff;
+      background: #000000;
+      color: #ffffff;
+      outline: none;
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .modal-btn {
+      background: transparent;
+      border: 1px solid #555555;
+      color: #888888;
+      font-size: 12px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .modal-btn:active {
+      transform: scale(0.98);
+      color: #666666;
+      border-color: #444444;
+    }
+
+    .atlas-total {
+      font-size: 13px;
+      color: #aaaaaa;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .atlas-total strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .atlas-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-right: 6px;
+      margin-top: 4px;
+    }
+
+    .atlas-section {
+      border: 1px solid #333333;
+      padding: 14px 12px;
+      background: #000000;
+    }
+
+    .atlas-section-title {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: #ffffff;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .achievement-row {
+      padding: 10px 0;
+      border-top: 1px solid #222222;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .achievement-row:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .achievement-row.locked {
+      color: #555555;
+      opacity: 0.4;
+    }
+
+    .achievement-row.unlocked {
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    .achievement-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .achievement-lock {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+
+    .achievement-name {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .achievement-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 2px;
+    }
+
+    .achievement-row.locked .achievement-desc {
+      display: none;
+    }
+
+    .achievement-condition {
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .custom-quote-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0;
+      border-top: 1px solid #222222;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #cccccc;
+    }
+
+    .custom-quote-row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .custom-quote-text {
+      flex: 1;
+      min-width: 0;
+      word-break: break-word;
+    }
+
+    .delete-quote-btn {
+      flex-shrink: 0;
+      background: transparent;
+      border: 0;
+      color: #884444;
+      font-size: 18px;
+      line-height: 1;
+      padding: 2px 8px;
+      cursor: pointer;
+      transition: color 80ms linear, transform 80ms linear;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .delete-quote-btn:hover {
+      color: #aa5555;
+    }
+
+    .delete-quote-btn:active {
+      transform: scale(0.92);
+      color: #cc6666;
+    }
+
+    .delete-quote-btn .del-txt {
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      margin-left: 2px;
+      vertical-align: middle;
+    }
+
+    .atlas-empty {
+      font-size: 13px;
+      color: #555555;
+      opacity: 0.65;
+      line-height: 1.5;
+    }
+
+    .atlas-runtime-stats {
+      font-size: 11px;
+      line-height: 1.55;
+      color: #777777;
+      letter-spacing: 0.03em;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .atlas-runtime-stats span {
+      display: block;
+    }
+
+    @keyframes achievementFade {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(10px);
+      }
+      12% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateY(0);
+      }
+      78% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(-10px);
+      }
+    }
+
     @keyframes floatFade {
       0% {
         transform: translateY(0);
@@ -159,11 +463,45 @@
       <p id="counter" class="counter">點擊次數：0</p>
       <button id="resetButton" class="reset-btn" type="button" aria-label="重置計數器">重置</button>
     </section>
+    <button id="atlasButton" class="corner-btn atlas-btn" type="button" aria-label="開啟虛無圖鑑">圖鑑</button>
+    <button id="addQuoteButton" class="corner-btn add-quote-btn" type="button" aria-label="新增自定義語錄">+</button>
     <div id="quoteLayer" class="quote-layer" aria-hidden="true"></div>
   </main>
 
+  <div id="addQuoteModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="新增語錄">
+      <p class="modal-title">新增自定義語錄</p>
+      <input id="customQuoteInput" class="modal-input" maxlength="80" placeholder="請輸入你的嘲諷語錄">
+      <div class="modal-actions">
+        <button id="cancelAddQuoteButton" class="modal-btn" type="button">取消</button>
+        <button id="confirmAddQuoteButton" class="modal-btn" type="button">儲存</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="atlasModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-card atlas-card" role="dialog" aria-modal="true" aria-label="個人虛無圖鑑">
+      <p class="modal-title">個人虛無圖鑑</p>
+      <p class="atlas-total">歷史總敲擊次數：<strong id="atlasTotalClicks">0</strong></p>
+      <div id="atlasRuntimeStats" class="atlas-runtime-stats" aria-live="polite"></div>
+      <div class="atlas-scroll">
+        <section class="atlas-section" aria-labelledby="atlasAchHeading">
+          <h2 id="atlasAchHeading" class="atlas-section-title">【虛無成就】</h2>
+          <div id="atlasAchievements"></div>
+        </section>
+        <section class="atlas-section" aria-labelledby="atlasCustomHeading">
+          <h2 id="atlasCustomHeading" class="atlas-section-title">【專屬廢話】</h2>
+          <div id="atlasCustomQuotes"></div>
+        </section>
+      </div>
+      <div class="modal-actions">
+        <button id="closeAtlasButton" class="modal-btn" type="button">關閉</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    const quotes = [
+    const defaultQuotes = [
       "功德 +1。銀行帳戶餘額 +0。",
       "你敲擊螢幕的手速再快，也趕不上通貨膨脹的速度。",
       "老闆的保時捷，就是靠你這種不懈的重複勞動換來的。",
@@ -181,18 +519,318 @@
       "你的大腦 CPU 應該已經燒乾了吧？不然怎麼會盯著這個畫面。",
       "這是一行開過光的代碼，但它並不能阻止你今晚繼續失眠。",
       "聽說敲滿一千下會召喚神龍。騙你的，只有無盡的空虛。",
-      "我看不懂，但我大受震撼。"
+      "我看不懂，但我大受震撼。",
+      "敲擊螢幕的聲音，掩蓋不了你明天還要早起通勤的悲鳴。",
+      "你每點一下，世界上就有一個富豪變得更有錢。雖然兩者沒有因果關係，但這就是現實。",
+      "履歷上的空白，不能用木魚的點擊數來填補。",
+      "我們創造了網路，然後把自己關進了名叫『點擊』的籠子裡。",
+      "試圖用有限的點擊，去對抗無限的空虛。真是可悲的演算法。",
+      "這句話在螢幕上停留了三點五秒，足夠讓你反省一下自己為何還在這裡。",
+      "我曾以為我的人生是一場悲劇，現在我發現，它其實是個無聊的點擊遊戲。",
+      "你被你敲擊的數字所擁有。",
+      "領域展開：無量空處。強迫大腦接收這些毫無意義的點擊數據，直到你完全失去思考能力。",
+      "不能逃避，不能逃避…… 但你在這裡狂敲木魚，本身就是一種逃避啊。",
+      "你以為你吞下了紅色藥丸看清了現實，其實你只是卡在一個粗糙的網頁迴圈裡。",
+      "逃避雖可恥但有用，不過在這個網頁裡，逃避既可恥，也沒有任何實質作用。",
+      "有限遊戲為了贏，無限遊戲為了延續。而你現在玩的遊戲，純粹是為了浪費生命。",
+      "上帝已死，而你還在這裡企圖用滑鼠超度自己。",
+      "你敲擊的不是木魚，是你即將逝去的腦細胞的喪鐘。"
     ];
+
+    const ACHIEVEMENT_LEGACY_MAP = {
+      a100: "ach_novice_salaryman",
+      a500: "ach_schrodinger_meaning",
+      a1000: "ach_infinite_game_prisoner"
+    };
+
+    const achievementDefinitions = [
+      {
+        id: "ach_novice_salaryman",
+        kind: "total",
+        need: 100,
+        title: "【初心社畜】",
+        conditionLabel: "累積敲擊木魚達 100 次",
+        unlockMessage: "你以為這是在熱身，其實這已經是你人生的巔峰狀態。"
+      },
+      {
+        id: "ach_schrodinger_meaning",
+        kind: "total",
+        need: 500,
+        title: "【薛丁格的意義】",
+        conditionLabel: "累積敲擊木魚達 500 次",
+        unlockMessage: "你敲了五百下，試圖在無意義中尋找意義。恭喜你，你失敗了。"
+      },
+      {
+        id: "ach_infinite_game_prisoner",
+        kind: "total",
+        need: 1000,
+        title: "【無限賽局的囚徒】",
+        conditionLabel: "累積敲擊木魚達 1000 次",
+        unlockMessage: "這是一個沒有終點、沒有贏家的地方，而你居然還在認真計分。"
+      },
+      {
+        id: "ach_midnight_philosopher",
+        kind: "midnight",
+        title: "【午夜哲學家】",
+        conditionLabel: "於凌晨 2:00～4:59 之間敲擊木魚（以裝置本地時間為準）",
+        unlockMessage: "這個時間，不去跟人通宵聊哲學，卻在這裡敲木魚，你的存在主義危機看來病得不輕。"
+      },
+      {
+        id: "ach_overclock_hands",
+        kind: "burst10s",
+        need: 50,
+        windowMs: 10000,
+        title: "【手速過載】",
+        conditionLabel: "10 秒內連續點擊木魚超過 50 次",
+        unlockMessage: "你想把這裡當成電競比賽來微操嗎？省點力氣吧，這裡沒有水晶塔需要你蓋。"
+      },
+      {
+        id: "ach_amuse_dead_numb",
+        kind: "idleNoClick",
+        idleMs: 600000,
+        title: "【娛樂至死的麻木】",
+        conditionLabel: "開啟網頁後閒置超過 10 分鐘，且期間完全未點擊木魚",
+        unlockMessage: "赫胥黎的預言在你身上完美體現。連點擊都懶，寧願盯著螢幕上的虛無發呆。"
+      },
+      {
+        id: "ach_schrodinger_insight",
+        kind: "burstThenIdle",
+        burstWindowMs: 60000,
+        burstNeed: 100,
+        idleMs: 60000,
+        title: "【薛丁格的頓悟】",
+        conditionLabel: "短時間內敲擊木魚超過 100 次後，再連續 1 分鐘未點擊木魚",
+        unlockMessage: "你終於意識到這是一場無意義的死活題。這塊地盤已經救不活了，放棄吧。"
+      }
+    ];
+
+    const STORAGE_KEYS = {
+      totalClicks: "cynical_clicker_total_clicks",
+      customQuotes: "cynical_clicker_custom_quotes",
+      unlockedAchievements: "cynical_clicker_unlocked_achievements"
+    };
 
     const muyuButton = document.getElementById("muyuButton");
     const counterEl = document.getElementById("counter");
     const statusPanel = document.getElementById("statusPanel");
     const resetButton = document.getElementById("resetButton");
+    const atlasButton = document.getElementById("atlasButton");
+    const addQuoteButton = document.getElementById("addQuoteButton");
     const quoteLayer = document.getElementById("quoteLayer");
+    const addQuoteModal = document.getElementById("addQuoteModal");
+    const atlasModal = document.getElementById("atlasModal");
+    const customQuoteInput = document.getElementById("customQuoteInput");
+    const confirmAddQuoteButton = document.getElementById("confirmAddQuoteButton");
+    const cancelAddQuoteButton = document.getElementById("cancelAddQuoteButton");
+    const closeAtlasButton = document.getElementById("closeAtlasButton");
+    const atlasTotalClicksEl = document.getElementById("atlasTotalClicks");
+    const atlasRuntimeStatsEl = document.getElementById("atlasRuntimeStats");
+    const atlasAchievementsEl = document.getElementById("atlasAchievements");
+    const atlasCustomQuotesEl = document.getElementById("atlasCustomQuotes");
     const baseMuyuSound = new Audio("muyu.mp3");
     baseMuyuSound.preload = "auto";
 
     let count = 0;
+    let totalClicks = loadNumber(STORAGE_KEYS.totalClicks, 0);
+    let customQuotes = loadStringArray(STORAGE_KEYS.customQuotes);
+    let unlockedAchievements = migrateUnlockedIds(
+      loadStringArray(STORAGE_KEYS.unlockedAchievements)
+    );
+    achievementDefinitions.forEach((ach) => {
+      if (ach.kind !== "total") return;
+      if (totalClicks >= ach.need && !unlockedAchievements.includes(ach.id)) {
+        unlockedAchievements.push(ach.id);
+      }
+    });
+    unlockedAchievements = [...new Set(unlockedAchievements)];
+    saveStringArray(STORAGE_KEYS.unlockedAchievements, unlockedAchievements);
+    let allQuotes = defaultQuotes.concat(customQuotes);
+
+    const pageLoadAt = Date.now();
+    let sessionMuyuClicks = 0;
+    let lastMuyuClickAt = 0;
+    const muyuClickTimestamps = [];
+    let schrodingerIdlePending = false;
+    let peakCps1s = 0;
+
+    function loadNumber(key, fallback) {
+      const raw = localStorage.getItem(key);
+      if (raw === null) return fallback;
+      const parsed = Number(raw);
+      return Number.isFinite(parsed) ? parsed : fallback;
+    }
+
+    function loadStringArray(key) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter((item) => typeof item === "string" && item.trim().length > 0);
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function saveNumber(key, value) {
+      localStorage.setItem(key, String(value));
+    }
+
+    function saveStringArray(key, array) {
+      localStorage.setItem(key, JSON.stringify(array));
+    }
+
+    function refreshQuotePool() {
+      allQuotes = defaultQuotes.concat(customQuotes);
+    }
+
+    function migrateUnlockedIds(list) {
+      const next = list.map((id) => ACHIEVEMENT_LEGACY_MAP[id] || id);
+      return [...new Set(next)];
+    }
+
+    function pruneMuyuTimestamps(now) {
+      const cutoff = now - 120000;
+      while (muyuClickTimestamps.length && muyuClickTimestamps[0] < cutoff) {
+        muyuClickTimestamps.shift();
+      }
+    }
+
+    function countMuyuInWindow(now, windowMs) {
+      const start = now - windowMs;
+      let n = 0;
+      for (let i = muyuClickTimestamps.length - 1; i >= 0; i--) {
+        if (muyuClickTimestamps[i] >= start) n++;
+        else break;
+      }
+      return n;
+    }
+
+    function updatePeakCps(now) {
+      const cps = countMuyuInWindow(now, 1000);
+      if (cps > peakCps1s) peakCps1s = cps;
+    }
+
+    function recordMuyuClickForStats(now) {
+      pruneMuyuTimestamps(now);
+      if (schrodingerIdlePending) {
+        schrodingerIdlePending = false;
+      }
+      muyuClickTimestamps.push(now);
+      lastMuyuClickAt = now;
+      sessionMuyuClicks += 1;
+      updatePeakCps(now);
+      const burstCount = countMuyuInWindow(now, 60000);
+      const def = achievementDefinitions.find((a) => a.id === "ach_schrodinger_insight");
+      if (def && burstCount > 100 && !achievementUnlocked(def.id)) {
+        schrodingerIdlePending = true;
+      }
+    }
+
+    function isMidnightPhilosopherHour() {
+      const h = new Date().getHours();
+      return h >= 2 && h < 5;
+    }
+
+    function achievementUnlocked(id) {
+      return unlockedAchievements.includes(id);
+    }
+
+    function unlockAchievement(ach) {
+      if (!ach || achievementUnlocked(ach.id)) return false;
+      unlockedAchievements.push(ach.id);
+      saveStringArray(STORAGE_KEYS.unlockedAchievements, unlockedAchievements);
+      spawnQuote(ach.title + "\n" + ach.unlockMessage, "center", "achievement");
+      return true;
+    }
+
+    function checkClickTriggeredAchievements() {
+      const order = [
+        "ach_overclock_hands",
+        "ach_midnight_philosopher",
+        "ach_novice_salaryman",
+        "ach_schrodinger_meaning",
+        "ach_infinite_game_prisoner"
+      ];
+      for (let i = 0; i < order.length; i++) {
+        const id = order[i];
+        if (achievementUnlocked(id)) continue;
+        const ach = achievementDefinitions.find((a) => a.id === id);
+        if (!ach) continue;
+        if (ach.kind === "burst10s") {
+          const now = Date.now();
+          if (countMuyuInWindow(now, ach.windowMs) > ach.need) {
+            return unlockAchievement(ach);
+          }
+        } else if (ach.kind === "midnight") {
+          if (isMidnightPhilosopherHour()) {
+            return unlockAchievement(ach);
+          }
+        } else if (ach.kind === "total") {
+          if (totalClicks >= ach.need) {
+            return unlockAchievement(ach);
+          }
+        }
+      }
+      return false;
+    }
+
+    function trySchrodingerIdleUnlock() {
+      const ach = achievementDefinitions.find((a) => a.id === "ach_schrodinger_insight");
+      if (!ach || achievementUnlocked(ach.id) || !schrodingerIdlePending || !lastMuyuClickAt) {
+        return false;
+      }
+      const now = Date.now();
+      if (now - lastMuyuClickAt >= ach.idleMs) {
+        schrodingerIdlePending = false;
+        return unlockAchievement(ach);
+      }
+      return false;
+    }
+
+    function tryAmuseDeadUnlock() {
+      const ach = achievementDefinitions.find((a) => a.id === "ach_amuse_dead_numb");
+      if (!ach || achievementUnlocked(ach.id)) return false;
+      if (sessionMuyuClicks === 0 && Date.now() - pageLoadAt >= ach.idleMs) {
+        return unlockAchievement(ach);
+      }
+      return false;
+    }
+
+    function renderAtlasRuntimeStats() {
+      if (!atlasRuntimeStatsEl) return;
+      const now = Date.now();
+      const cps = lastMuyuClickAt ? countMuyuInWindow(now, 1000) : 0;
+      const idleSec = lastMuyuClickAt
+        ? Math.floor((now - lastMuyuClickAt) / 1000)
+        : Math.floor((now - pageLoadAt) / 1000);
+      const openMin = ((now - pageLoadAt) / 60000).toFixed(1);
+      atlasRuntimeStatsEl.innerHTML =
+        "<span>追蹤：近 1 秒木魚 CPS（約） " +
+        cps +
+        "／歷史峰值 " +
+        peakCps1s +
+        "</span>" +
+        "<span>距離上次木魚點擊： " +
+        idleSec +
+        " 秒（本頁累計木魚 " +
+        sessionMuyuClicks +
+        " 次）</span>" +
+        "<span>頁面已開啟： " +
+        openMin +
+        " 分 · 本地時間 " +
+        new Date().toLocaleString() +
+        "</span>";
+    }
+
+    setInterval(() => {
+      trySchrodingerIdleUnlock();
+      tryAmuseDeadUnlock();
+    }, 400);
+
+    setTimeout(() => {
+      tryAmuseDeadUnlock();
+    }, 600000);
 
     function randomFrom(array) {
       return array[Math.floor(Math.random() * array.length)];
@@ -242,15 +880,25 @@
       return { x, y };
     }
 
-    function spawnQuote(text, placement) {
+    function spawnQuote(text, placement, variant) {
       const quote = document.createElement("span");
       quote.className = "floating-quote";
-      quote.textContent = text || randomFrom(quotes);
+      if (variant === "achievement") {
+        quote.classList.add("achievement");
+      }
+      quote.textContent = text || randomFrom(allQuotes);
 
       quoteLayer.appendChild(quote);
       const quoteRect = quote.getBoundingClientRect();
       let x = 0;
       let y = 0;
+
+      if (variant === "achievement") {
+        quote.addEventListener("animationend", () => {
+          quote.remove();
+        }, { once: true });
+        return;
+      }
 
       if (placement === "top") {
         const topMin = 16;
@@ -277,11 +925,109 @@
       }, { once: true });
     }
 
+    function openModal(modalEl) {
+      modalEl.classList.add("open");
+      modalEl.setAttribute("aria-hidden", "false");
+    }
+
+    function closeModal(modalEl) {
+      modalEl.classList.remove("open");
+      modalEl.setAttribute("aria-hidden", "true");
+    }
+
+    function renderAtlasAchievements() {
+      atlasAchievementsEl.innerHTML = achievementDefinitions
+        .map((ach) => {
+          const unlocked = achievementUnlocked(ach.id);
+          const rowClass = unlocked ? "achievement-row unlocked" : "achievement-row locked";
+          const lockLabel = unlocked
+            ? ""
+            : '<span class="achievement-lock" aria-hidden="true">鎖</span>';
+          const nameHtml = '<span class="achievement-name">' + ach.title + "</span>";
+          const conditionHtml =
+            '<p class="achievement-condition">' + ach.conditionLabel + "</p>";
+          const descHtml =
+            '<p class="achievement-desc">' + ach.unlockMessage + "</p>";
+          return (
+            '<div class="' +
+            rowClass +
+            '" data-achievement-id="' +
+            ach.id +
+            '">' +
+            '<div class="achievement-head">' +
+            lockLabel +
+            nameHtml +
+            "</div>" +
+            (unlocked ? descHtml : conditionHtml) +
+            "</div>"
+          );
+        })
+        .join("");
+    }
+
+    function renderAtlasCustomQuotes() {
+      if (customQuotes.length === 0) {
+        atlasCustomQuotesEl.innerHTML =
+          '<p class="atlas-empty">空空如也，一如你的人生</p>';
+        return;
+      }
+      atlasCustomQuotesEl.innerHTML = customQuotes
+        .map((quote, index) => {
+          const safe = quote
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+          return (
+            '<div class="custom-quote-row">' +
+            '<span class="custom-quote-text">' +
+            safe +
+            "</span>" +
+            '<button type="button" class="delete-quote-btn" data-quote-index="' +
+            index +
+            '" aria-label="刪除此句語錄"><span class="del-x" aria-hidden="true">×</span><span class="del-txt">刪除</span></button>' +
+            "</div>"
+          );
+        })
+        .join("");
+    }
+
+    function renderAtlas() {
+      atlasTotalClicksEl.textContent = String(totalClicks);
+      renderAtlasRuntimeStats();
+      renderAtlasAchievements();
+      renderAtlasCustomQuotes();
+    }
+
+    function deleteCustomQuoteAt(index) {
+      if (index < 0 || index >= customQuotes.length) return;
+      customQuotes.splice(index, 1);
+      saveStringArray(STORAGE_KEYS.customQuotes, customQuotes);
+      refreshQuotePool();
+      renderAtlas();
+    }
+
+    function addCustomQuoteFromInput() {
+      const value = customQuoteInput.value.trim();
+      if (!value) return;
+      customQuotes.push(value);
+      saveStringArray(STORAGE_KEYS.customQuotes, customQuotes);
+      refreshQuotePool();
+      closeModal(addQuoteModal);
+      customQuoteInput.value = "";
+      spawnQuote("新的彈藥已入庫。", "top");
+    }
+
     function clickMuyu() {
       count += 1;
+      totalClicks += 1;
       counterEl.textContent = "點擊次數：" + count;
+      saveNumber(STORAGE_KEYS.totalClicks, totalClicks);
+      recordMuyuClickForStats(Date.now());
       playMuyuSound();
-      spawnQuote();
+
+      if (checkClickTriggeredAchievements()) return;
+      spawnQuote(randomFrom(allQuotes));
     }
 
     muyuButton.addEventListener("click", clickMuyu);
@@ -289,6 +1035,36 @@
       count = 0;
       counterEl.textContent = "點擊次數：0";
       spawnQuote("你以為一切都可以重新開始？", "top");
+    });
+    addQuoteButton.addEventListener("click", () => {
+      openModal(addQuoteModal);
+      setTimeout(() => customQuoteInput.focus(), 0);
+    });
+    confirmAddQuoteButton.addEventListener("click", addCustomQuoteFromInput);
+    cancelAddQuoteButton.addEventListener("click", () => closeModal(addQuoteModal));
+    atlasButton.addEventListener("click", () => {
+      renderAtlas();
+      openModal(atlasModal);
+    });
+    closeAtlasButton.addEventListener("click", () => closeModal(atlasModal));
+    addQuoteModal.addEventListener("click", (event) => {
+      if (event.target === addQuoteModal) closeModal(addQuoteModal);
+    });
+    atlasModal.addEventListener("click", (event) => {
+      if (event.target === atlasModal) closeModal(atlasModal);
+    });
+    atlasCustomQuotesEl.addEventListener("click", (event) => {
+      const btn = event.target.closest(".delete-quote-btn");
+      if (!btn || !atlasCustomQuotesEl.contains(btn)) return;
+      const idx = Number(btn.getAttribute("data-quote-index"));
+      if (!Number.isFinite(idx)) return;
+      deleteCustomQuoteAt(idx);
+    });
+    customQuoteInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        addCustomQuoteFromInput();
+      }
     });
 
     // Keyboard support
@@ -319,6 +1095,13 @@
         event.preventDefault();
         resetButton.classList.remove("is-pressed");
         resetButton.click();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeModal(addQuoteModal);
+        closeModal(atlasModal);
       }
     });
   </script>
