@@ -291,6 +291,51 @@
       font-weight: 600;
     }
 
+    .atlas-accordion {
+      border: 1px solid #333333;
+      background: #000000;
+      margin-bottom: 10px;
+    }
+
+    .atlas-accordion:last-child {
+      margin-bottom: 0;
+    }
+
+    .atlas-accordion summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 12px 10px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: #aaaaaa;
+      border-bottom: 1px solid transparent;
+      user-select: none;
+    }
+
+    .atlas-accordion summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .atlas-accordion summary::after {
+      content: "＋";
+      float: right;
+      color: #666666;
+      font-size: 12px;
+    }
+
+    .atlas-accordion[open] summary {
+      color: #ffffff;
+      border-bottom-color: #333333;
+    }
+
+    .atlas-accordion[open] summary::after {
+      content: "－";
+    }
+
+    .atlas-accordion-body-inner {
+      padding: 4px 8px 12px;
+    }
+
     .achievement-row {
       padding: 10px 0;
       border-top: 1px solid #222222;
@@ -553,7 +598,9 @@
       "比你優秀的人都在努力，那你努力還有什麼用？",
       "萬事起頭難，中間難，結尾也難。習慣了就好。",
       "生活不只有眼前的苟且，還有讀不懂的詩和到不了的遠方。",
-      "善良沒用，你得漂亮，還要很有錢。可惜你現在只有一個木魚。"
+      "善良沒用，你得漂亮，還要很有錢。可惜你現在只有一個木魚。",
+      "你現在的耐心，如果能分一丁點給那份還沒寫完的企劃書，你早就解脫了。",
+      "別敲了，這張圖案再精緻，它也發不出真正救贖你的聲音。"
     ];
 
     const ACHIEVEMENT_LEGACY_MAP = {
@@ -565,6 +612,7 @@
     const achievementDefinitions = [
       {
         id: "ach_novice_salaryman",
+        category: "quantified",
         kind: "total",
         need: 100,
         title: "【初心社畜】",
@@ -573,6 +621,7 @@
       },
       {
         id: "ach_schrodinger_meaning",
+        category: "quantified",
         kind: "total",
         need: 500,
         title: "【薛丁格的意義】",
@@ -581,6 +630,7 @@
       },
       {
         id: "ach_infinite_game_prisoner",
+        category: "quantified",
         kind: "total",
         need: 1000,
         title: "【無限賽局的囚徒】",
@@ -588,14 +638,8 @@
         unlockMessage: "這是一個沒有終點、沒有贏家的地方，而你居然還在認真計分。"
       },
       {
-        id: "ach_midnight_philosopher",
-        kind: "midnight",
-        title: "【午夜哲學家】",
-        conditionLabel: "於凌晨 2:00～4:59 之間敲擊木魚（以裝置本地時間為準）",
-        unlockMessage: "這個時間，不去跟人通宵聊哲學，卻在這裡敲木魚，你的存在主義危機看來病得不輕。"
-      },
-      {
         id: "ach_overclock_hands",
+        category: "behavior",
         kind: "burst10s",
         need: 50,
         windowMs: 10000,
@@ -604,15 +648,8 @@
         unlockMessage: "你想把這裡當成電競比賽來微操嗎？省點力氣吧，這裡沒有水晶塔需要你蓋。"
       },
       {
-        id: "ach_amuse_dead_numb",
-        kind: "idleNoClick",
-        idleMs: 600000,
-        title: "【娛樂至死的麻木】",
-        conditionLabel: "開啟網頁後閒置超過 10 分鐘，且期間完全未點擊木魚",
-        unlockMessage: "赫胥黎的預言在你身上完美體現。連點擊都懶，寧願盯著螢幕上的虛無發呆。"
-      },
-      {
         id: "ach_schrodinger_insight",
+        category: "behavior",
         kind: "burstThenIdle",
         burstWindowMs: 60000,
         burstNeed: 100,
@@ -620,13 +657,87 @@
         title: "【薛丁格的頓悟】",
         conditionLabel: "短時間內敲擊木魚超過 100 次後，再連續 1 分鐘未點擊木魚",
         unlockMessage: "你終於意識到這是一場無意義的死活題。這塊地盤已經救不活了，放棄吧。"
+      },
+      {
+        id: "ach_sacrifice_capture",
+        category: "behavior",
+        kind: "sacrificeLadder",
+        rapidWindowMs: 3500,
+        pauseMinMs: 4800,
+        pauseMaxMs: 7200,
+        title: "【撲：自投羅網】",
+        conditionLabel: "快速點擊木魚 10 次（約 3.5 秒內）後，停頓約 5 秒，再點擊一次",
+        unlockMessage: "這不是圍棋裡的捨身餵吃，這只是你在現實中白費心機的縮影。"
+      },
+      {
+        id: "ach_fake_overtime",
+        category: "behavior",
+        kind: "slowRhythm",
+        rhythmGapMinMs: 1800,
+        rhythmGapMaxMs: 2200,
+        rhythmStreakNeed: 29,
+        title: "【無效加班】",
+        conditionLabel: "約每 2 秒敲擊一次木魚，連續維持穩定節奏滿約 1 分鐘（約 30 下）",
+        unlockMessage: "恭喜你，你成功模擬了在辦公室摸魚卻裝作很忙的節奏。效率為零，疲勞加倍。"
+      },
+      {
+        id: "ach_dead_shape",
+        category: "behavior",
+        kind: "unluckyHold",
+        unluckyTotals: [444, 666, 999],
+        holdMs: 60000,
+        title: "【死活題：眼位缺失】",
+        conditionLabel: "歷史總點擊數剛好為 444、666 或 999，並維持該數字超過 1 分鐘未再敲擊木魚",
+        unlockMessage: "你在這裡追求數字的圓滿，但在虛擬的棋盤上，你早已是一塊死掉的廢石。"
+      },
+      {
+        id: "ach_midnight_philosopher",
+        category: "spacetime",
+        kind: "midnight",
+        title: "【午夜哲學家】",
+        conditionLabel: "於凌晨 2:00～4:59 之間敲擊木魚（以裝置本地時間為準）",
+        unlockMessage: "這個時間，不去跟人通宵聊哲學，卻在這裡敲木魚，你的存在主義危機看來病得不輕。"
+      },
+      {
+        id: "ach_amuse_dead_numb",
+        category: "spacetime",
+        kind: "idleNoClick",
+        idleMs: 600000,
+        title: "【娛樂至死的麻木】",
+        conditionLabel: "開啟網頁後閒置超過 10 分鐘，且期間完全未點擊木魚",
+        unlockMessage: "赫胥黎的預言在你身上完美體現。連點擊都懶，寧願盯著螢幕上的虛無發呆。"
+      },
+      {
+        id: "ach_freelancer_trap",
+        category: "spacetime",
+        kind: "weekdayWork",
+        workNeed: 200,
+        title: "【自由職業者的假象】",
+        conditionLabel: "於週一至週五 09:00～17:59（本地時間）內，累積敲擊木魚超過 200 次",
+        unlockMessage: "名義上你是自由的，但此刻你卻被這塊木魚囚禁在螢幕前。這就是你想要的靈感嗎？"
+      },
+      {
+        id: "ach_infinite_spectator",
+        category: "spacetime",
+        kind: "atlasIdle",
+        idleMs: 180000,
+        title: "【無限賽局的旁觀者】",
+        conditionLabel: "開啟圖鑑後連續 3 分鐘沒有任何操作（僅盯著面板）",
+        unlockMessage: "詹姆斯·卡斯說有限遊戲是為了贏，無限遊戲是為了延續。而你現在只是在盯著一堆代碼垃圾在發呆，試圖延續你那枯燥的下午。"
       }
+    ];
+
+    const ACHIEVEMENT_ACCORDION_GROUPS = [
+      { key: "quantified", label: "量化虛無" },
+      { key: "behavior", label: "行為偏差" },
+      { key: "spacetime", label: "時空錯位" }
     ];
 
     const STORAGE_KEYS = {
       totalClicks: "cynical_clicker_total_clicks",
       customQuotes: "cynical_clicker_custom_quotes",
-      unlockedAchievements: "cynical_clicker_unlocked_achievements"
+      unlockedAchievements: "cynical_clicker_unlocked_achievements",
+      weekdayWorkHourClicks: "cynical_clicker_weekday_work_clicks"
     };
 
     const muyuButton = document.getElementById("muyuButton");
@@ -671,6 +782,18 @@
     const muyuClickTimestamps = [];
     let schrodingerIdlePending = false;
     let peakCps1s = 0;
+    let weekdayWorkhourClicks = loadNumber(STORAGE_KEYS.weekdayWorkHourClicks, 0);
+
+    let sacrificePhase = 0;
+    let sacrificeRapidStart = 0;
+    let sacrificeRapidCount = 0;
+    let sacrificeTenthAt = 0;
+    let sacrificeSkipAdvanceOnce = false;
+
+    let slowRhythmStreak = 0;
+    let unluckyHoldSince = 0;
+
+    let atlasSpectatorLastActivity = 0;
 
     function loadNumber(key, fallback) {
       const raw = localStorage.getItem(key);
@@ -749,6 +872,87 @@
     function isMidnightPhilosopherHour() {
       const h = new Date().getHours();
       return h >= 2 && h < 5;
+    }
+
+    function isWeekdayWorkHours() {
+      const d = new Date();
+      const day = d.getDay();
+      if (day < 1 || day > 5) return false;
+      const mins = d.getHours() * 60 + d.getMinutes();
+      return mins >= 9 * 60 && mins < 18 * 60;
+    }
+
+    function processSacrificePhase1BeforeRecord(now) {
+      const ach = achievementDefinitions.find((a) => a.id === "ach_sacrifice_capture");
+      if (!ach || achievementUnlocked(ach.id)) {
+        sacrificePhase = 0;
+        return { unlock: false };
+      }
+      if (sacrificePhase !== 1) {
+        return { unlock: false };
+      }
+      const gap = now - sacrificeTenthAt;
+      sacrificePhase = 0;
+      sacrificeRapidCount = 0;
+      if (gap >= ach.pauseMinMs && gap <= ach.pauseMaxMs) {
+        return { unlock: true };
+      }
+      sacrificeRapidStart = now;
+      sacrificeRapidCount = 1;
+      sacrificeSkipAdvanceOnce = true;
+      return { unlock: false };
+    }
+
+    function advanceSacrificeRapid(now) {
+      const ach = achievementDefinitions.find((a) => a.id === "ach_sacrifice_capture");
+      if (!ach || achievementUnlocked(ach.id) || sacrificePhase === 1) return;
+
+      if (sacrificeRapidCount === 0) {
+        sacrificeRapidStart = now;
+        sacrificeRapidCount = 1;
+        return;
+      }
+      if (now - sacrificeRapidStart <= ach.rapidWindowMs) {
+        sacrificeRapidCount += 1;
+        if (sacrificeRapidCount >= 10) {
+          sacrificePhase = 1;
+          sacrificeTenthAt = now;
+          sacrificeRapidCount = 0;
+        }
+      } else {
+        sacrificeRapidStart = now;
+        sacrificeRapidCount = 1;
+      }
+    }
+
+    function tryDeadShapeUnlock() {
+      const ach = achievementDefinitions.find((a) => a.id === "ach_dead_shape");
+      if (!ach || achievementUnlocked(ach.id)) return false;
+      if (!unluckyHoldSince) return false;
+      if (!ach.unluckyTotals.includes(totalClicks)) {
+        unluckyHoldSince = 0;
+        return false;
+      }
+      const now = Date.now();
+      if (now - unluckyHoldSince >= ach.holdMs) {
+        unluckyHoldSince = 0;
+        return unlockAchievement(ach);
+      }
+      return false;
+    }
+
+    function tryAtlasSpectatorUnlock() {
+      const ach = achievementDefinitions.find((a) => a.id === "ach_infinite_spectator");
+      if (!ach || achievementUnlocked(ach.id)) return false;
+      if (!atlasModal.classList.contains("open")) return false;
+      if (Date.now() - atlasSpectatorLastActivity < ach.idleMs) return false;
+      return unlockAchievement(ach);
+    }
+
+    function bumpAtlasSpectatorActivity() {
+      if (atlasModal.classList.contains("open")) {
+        atlasSpectatorLastActivity = Date.now();
+      }
     }
 
     function achievementUnlocked(id) {
@@ -845,6 +1049,8 @@
     setInterval(() => {
       trySchrodingerIdleUnlock();
       tryAmuseDeadUnlock();
+      tryDeadShapeUnlock();
+      tryAtlasSpectatorUnlock();
     }, 400);
 
     setTimeout(() => {
@@ -947,6 +1153,9 @@
     function openModal(modalEl) {
       modalEl.classList.add("open");
       modalEl.setAttribute("aria-hidden", "false");
+      if (modalEl === atlasModal) {
+        atlasSpectatorLastActivity = Date.now();
+      }
     }
 
     function closeModal(modalEl) {
@@ -954,34 +1163,47 @@
       modalEl.setAttribute("aria-hidden", "true");
     }
 
+    function renderAchievementRowHtml(ach) {
+      const unlocked = achievementUnlocked(ach.id);
+      const rowClass = unlocked ? "achievement-row unlocked" : "achievement-row locked";
+      const lockLabel = unlocked
+        ? ""
+        : '<span class="achievement-lock" aria-hidden="true">鎖</span>';
+      const nameHtml = '<span class="achievement-name">' + ach.title + "</span>";
+      const conditionHtml =
+        '<p class="achievement-condition">' + ach.conditionLabel + "</p>";
+      const descHtml =
+        '<p class="achievement-desc">' + ach.unlockMessage + "</p>";
+      return (
+        '<div class="' +
+        rowClass +
+        '" data-achievement-id="' +
+        ach.id +
+        '">' +
+        '<div class="achievement-head">' +
+        lockLabel +
+        nameHtml +
+        "</div>" +
+        (unlocked ? descHtml : conditionHtml) +
+        "</div>"
+      );
+    }
+
     function renderAtlasAchievements() {
-      atlasAchievementsEl.innerHTML = achievementDefinitions
-        .map((ach) => {
-          const unlocked = achievementUnlocked(ach.id);
-          const rowClass = unlocked ? "achievement-row unlocked" : "achievement-row locked";
-          const lockLabel = unlocked
-            ? ""
-            : '<span class="achievement-lock" aria-hidden="true">鎖</span>';
-          const nameHtml = '<span class="achievement-name">' + ach.title + "</span>";
-          const conditionHtml =
-            '<p class="achievement-condition">' + ach.conditionLabel + "</p>";
-          const descHtml =
-            '<p class="achievement-desc">' + ach.unlockMessage + "</p>";
-          return (
-            '<div class="' +
-            rowClass +
-            '" data-achievement-id="' +
-            ach.id +
-            '">' +
-            '<div class="achievement-head">' +
-            lockLabel +
-            nameHtml +
-            "</div>" +
-            (unlocked ? descHtml : conditionHtml) +
-            "</div>"
-          );
-        })
-        .join("");
+      atlasAchievementsEl.innerHTML = ACHIEVEMENT_ACCORDION_GROUPS.map((group) => {
+        const items = achievementDefinitions.filter((a) => a.category === group.key);
+        const inner = items.map(renderAchievementRowHtml).join("");
+        return (
+          '<details class="atlas-accordion">' +
+          "<summary>" +
+          group.label +
+          "</summary>" +
+          '<div class="atlas-accordion-body-inner">' +
+          inner +
+          "</div>" +
+          "</details>"
+        );
+      }).join("");
     }
 
     function renderAtlasCustomQuotes() {
@@ -1037,14 +1259,80 @@
       spawnQuote("新的彈藥已入庫。", "top");
     }
 
+    function bumpWeekdayWorkCounter() {
+      if (!isWeekdayWorkHours()) return;
+      weekdayWorkhourClicks += 1;
+      saveNumber(STORAGE_KEYS.weekdayWorkHourClicks, weekdayWorkhourClicks);
+    }
+
+    function tryFreelancerUnlockAfterBump() {
+      const ach = achievementDefinitions.find((a) => a.id === "ach_freelancer_trap");
+      if (!ach || achievementUnlocked(ach.id)) return false;
+      if (weekdayWorkhourClicks < ach.workNeed) return false;
+      return unlockAchievement(ach);
+    }
+
+    function updateUnluckyAnchorAfterTotalChange() {
+      const dead = achievementDefinitions.find((a) => a.id === "ach_dead_shape");
+      if (!dead) return;
+      if (dead.unluckyTotals.includes(totalClicks)) {
+        unluckyHoldSince = Date.now();
+      } else {
+        unluckyHoldSince = 0;
+      }
+    }
+
     function clickMuyu() {
       count += 1;
       totalClicks += 1;
       counterEl.textContent = "點擊次數：" + count;
       saveNumber(STORAGE_KEYS.totalClicks, totalClicks);
-      recordMuyuClickForStats(Date.now());
+
+      const now = Date.now();
+      const prevLast = lastMuyuClickAt;
+
+      const sac = processSacrificePhase1BeforeRecord(now);
+      if (sac.unlock) {
+        recordMuyuClickForStats(now);
+        bumpWeekdayWorkCounter();
+        updateUnluckyAnchorAfterTotalChange();
+        playMuyuSound();
+        unlockAchievement(
+          achievementDefinitions.find((x) => x.id === "ach_sacrifice_capture")
+        );
+        return;
+      }
+
+      const fakeDef = achievementDefinitions.find((x) => x.id === "ach_fake_overtime");
+      if (prevLast > 0 && fakeDef && !achievementUnlocked(fakeDef.id)) {
+        const gap = now - prevLast;
+        if (gap >= fakeDef.rhythmGapMinMs && gap <= fakeDef.rhythmGapMaxMs) {
+          slowRhythmStreak += 1;
+        } else {
+          slowRhythmStreak = 0;
+        }
+      } else {
+        slowRhythmStreak = 0;
+      }
+
+      recordMuyuClickForStats(now);
+      bumpWeekdayWorkCounter();
+      updateUnluckyAnchorAfterTotalChange();
+
+      if (!sacrificeSkipAdvanceOnce) advanceSacrificeRapid(now);
+      else sacrificeSkipAdvanceOnce = false;
+
       playMuyuSound();
 
+      if (
+        fakeDef &&
+        !achievementUnlocked(fakeDef.id) &&
+        slowRhythmStreak >= fakeDef.rhythmStreakNeed
+      ) {
+        if (unlockAchievement(fakeDef)) return;
+      }
+
+      if (tryFreelancerUnlockAfterBump()) return;
       if (checkClickTriggeredAchievements()) return;
       spawnQuote(randomFrom(allQuotes));
     }
@@ -1118,10 +1406,21 @@
     });
 
     document.addEventListener("keydown", (event) => {
+      bumpAtlasSpectatorActivity();
       if (event.key === "Escape") {
         closeModal(addQuoteModal);
         closeModal(atlasModal);
       }
+    });
+
+    ["pointerdown", "touchstart", "wheel"].forEach((evt) => {
+      window.addEventListener(
+        evt,
+        () => {
+          bumpAtlasSpectatorActivity();
+        },
+        { passive: true }
+      );
     });
   </script>
 </body>
